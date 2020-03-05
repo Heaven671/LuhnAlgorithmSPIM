@@ -1,8 +1,12 @@
 .data
 string_hello: .asciiz "\nBonjour et bienvenue dans le programme MIPS bancaire\n"
-string_choice: .asciiz "Choisissez un nombre entre 1 et 3 \n"
+string_choice: .asciiz "\nChoisissez un nombre entre 1 et 3 \n"
 string_end: .asciiz "\nFin du programme, sortie ...\n"
 string_err: .asciiz "Veuillez entrer un nombre entre 1 et 3\n"
+
+
+
+
 .text
 
 generate:
@@ -49,7 +53,7 @@ b __globl__
 valid_num:
 
 li $t0 15 # longueur nombre
-li $t1 1 # pair impair
+li $t1 2 # pair impair
 
 	valid_loop:
 	
@@ -63,8 +67,6 @@ li $t1 1 # pair impair
 	valid_sum:
 	
 	add $t9 $t9 $t2 # on enregistre la somme
-	move $a0 $t2
-	
 	sub $t0 $t0 1 # plus que n-1 nombres
 	
 	b valid_loop
@@ -90,7 +92,7 @@ li $t1 1 # pair impair
 		
 		even_end:
 		add $t1 $t1 1 # pour faire passer a la position pair
-		b valid_sum
+		j valid_sum
 		
 			sub_nine:
 			
@@ -103,7 +105,7 @@ li $t1 1 # pair impair
 		li $v0 0
 		sub $t1 $t1 1 #pour passer a la position impair
 		
-		b valid_sum
+		j valid_sum
 		
 		
 	valid_last_num:
@@ -117,7 +119,7 @@ li $t1 1 # pair impair
 	li $v0 1 #on affiche le dernier nombre
 	syscall
 	
-	b end
+	b __globl__
 		mod10:
 		sub $t9 $t9 10
 		b valid_last_num
